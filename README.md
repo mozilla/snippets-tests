@@ -5,7 +5,7 @@
 <PROJECT_NAME>
 =====================
 
-Automated tests for the <PROJECT_NAME> web application.
+Automated tests for the Snippets web app
 
 Running Tests
 -------------
@@ -26,7 +26,7 @@ global Python installation. If you work on multiple Python projects that might
 end up needing different versions of the same libraries, you might want to
 follow `sudo easy_install pip` with `sudo pip install virtualenv`, and then
 create and activate a [virtualenv](http://www.virtualenv.org) (e.g. `virtualenv
-<PROJECT_NAME>-tests-env; source <PROJECT_NAME>-tests-env/bin/activate`) to
+snippets-tests-env; source snippets-tests-env/bin/activate`) to
 create a clean "virtual environment" for just this project. Then you can
 `pip install -r requirements.txt` in your virtual environment
 without needing to use `sudo`.
@@ -47,21 +47,11 @@ if you are running on Debian or Ubuntu, you may need to do:
     
 to install the required Python libraries.
 
-### Selenium
-Once this is all set up you will need to download and start a Selenium server. You can download the latest Selenium server from [here][Selenium Downloads]. The filename will be something like 'selenium-server-standalone-x.x.jar (where x.x is current shipping version)'
-
-To start the Selenium server run the following command:
-
-    java -jar ~/Downloads/selenium-server-standalone-x.x.jar (where x.x is current shipping version)
-
-Change the path/name to the downloaded Selenium server file.
-
-[Selenium Downloads]: http://code.google.com/p/selenium/downloads/list
-
+### Running Tests
 Once the above prerequisites have been met, you can run the tests using the
 following command:
 
-    py.test --browsername=*firefox --browserver=8 --platform=<LINUX|WINDOWS|MACOS>
+    py.test tests/test_snippets.py
 
 For other possible options, type `py.test --help`.
 
