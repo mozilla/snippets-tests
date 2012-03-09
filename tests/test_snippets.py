@@ -35,7 +35,7 @@ class TestSnippets:
         full_url = mozwebqa.base_url + path
 
         r = self._get_redirect(full_url)
-        Assert.equal(r.status_code, requests.codes.ok)
+        Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" %(full_url, r.status_code))
 
         soup = self._parse_response(r.content)
         snippets = soup.select("div.snippet")
