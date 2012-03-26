@@ -41,25 +41,11 @@ class TestSnippets:
         snippets = soup.select("div.snippet")
 
         Assert.greater(len(snippets), 0, "No snippets found")
-        
-    @pytest.mark.parametrize(('path'), test_data)
-    def test_snippets_image_present(self, mozwebqa, path):
-        full_url = mozwebqa.base_url + path
-        
-        soup = self._parse_response(self._get_redirect(full_url).content)
-        snippets = soup.select("div.snippet")
-        snippet_icons = soup.select("div.snippet img.icon")
-
-        Assert.equal(len(snippets), len(snippet_icons), "Snippets do not match Snippet icons")
-        Assert.greater(len(snippets), 0, "No snippets found")
-
-        for img in snippet_icons:
-            Assert.not_none(img['src'], "Snippet icon src not found")
 
     @pytest.mark.parametrize(('path'), test_data)
     def test_all_links(self, mozwebqa, path):
         full_url = mozwebqa.base_url + path
-        
+
         soup = self._parse_response(self._get_redirect(full_url).content)
         snippet_links = soup.select("a")
 
