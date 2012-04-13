@@ -25,7 +25,17 @@ class TestSnippets:
                    'accept-language': locale}
 
         # verify=False ignores invalid certificate
-        return requests.get(url, headers=headers, verify=False)
+        return requests.get(url, headers=headers, verify=False, timeout=5)
+
+    def assert_valid_url(self, url, path, user_agent=_user_agent_firefox, locale='en-US'):
+        """Checks if a URL returns a 200 OK response."""
+        headers = {'user-agent': user_agent,
+                   'accept-language': locale}
+
+        # HEAD doesn't return page body.
+        r = requests.head(url, headers=headers, verify=False, timeout=5)
+        return Assert.equal(r.status_code, requests.codes.ok,
+                            'Bad URL %s found in %s' % (url, path))
 
     def _parse_response(self, content):
         return BeautifulSoup(content)
@@ -52,9 +62,4 @@ class TestSnippets:
         Assert.greater(len(snippet_links), 0, "No links found")
 
         for link in snippet_links:
-            try:
-                r = self._get_redirect(link['href'])
-            except:
-                Assert.fail("Failed to get URL %s , check its validity" % link['href'])
-
-            Assert.equal(r.status_code, requests.codes.ok, "Bad URL %s found in %s" %(link['href'], path))
+            self.assert_valid_url(link['href'], path)
