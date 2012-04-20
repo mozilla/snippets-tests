@@ -33,7 +33,7 @@ class TestSnippets:
                    'accept-language': locale}
 
         # HEAD doesn't return page body.
-        r = requests.head(url, headers=headers, verify=False, timeout=5)
+        r = requests.head(url, headers=headers, timeout=5, allow_redirects=True, verify=False)
         return Assert.equal(r.status_code, requests.codes.ok,
                             'Bad URL %s found in %s' % (url, path))
 
