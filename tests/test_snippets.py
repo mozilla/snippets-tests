@@ -41,16 +41,16 @@ class TestSnippets:
         return BeautifulSoup(content)
 
     @pytest.mark.parametrize(('path'), test_data)
-    def test_snippets_present(self, mozwebqa, path):
+    def test_snippet_set_present(self, mozwebqa, path):
         full_url = mozwebqa.base_url + path
 
         r = self._get_redirect(full_url)
         Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" %(full_url, r.status_code))
 
         soup = self._parse_response(r.content)
-        snippets = soup.select("div.snippet")
+        snippet_set = soup.select("div.snippet_set")
 
-        Assert.greater(len(snippets), 0, "No snippets found")
+        Assert.greater(len(snippet_set), 0, "No snippet set found")
 
     @pytest.mark.parametrize(('path'), test_data)
     def test_all_links(self, mozwebqa, path):
@@ -58,8 +58,6 @@ class TestSnippets:
 
         soup = self._parse_response(self._get_redirect(full_url).content)
         snippet_links = soup.select("a")
-
-        Assert.greater(len(snippet_links), 0, "No links found")
 
         for link in snippet_links:
             self.assert_valid_url(link['href'], path)
