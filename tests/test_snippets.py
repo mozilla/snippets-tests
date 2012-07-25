@@ -41,7 +41,7 @@ class TestSnippets:
         return BeautifulSoup(content)
 
     @pytest.mark.parametrize(('path'), test_data)
-    def test_snippets_present(self, mozwebqa, path):
+    def test_snippet_set_present(self, mozwebqa, path):
         full_url = mozwebqa.base_url + path
 
         r = self._get_redirect(full_url)
