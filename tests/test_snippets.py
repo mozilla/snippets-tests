@@ -13,9 +13,9 @@ import requests
 class TestSnippets:
 
     test_data = [
-        ('/1/Firefox/default/default/default/en-US/release/default/default/default/'),
-        ('/1/Firefox/default/default/default/en-US/aurora/default/default/default/'),
-        ('/1/Firefox/default/default/default/en-US/beta/default/default/default/')]
+        ('/3/Firefox/default/default/default/en-US/release/default/default/default/'),
+        ('/3/Firefox/default/default/default/en-US/aurora/default/default/default/'),
+        ('/3/Firefox/default/default/default/en-US/beta/default/default/default/')]
 
     _user_agent_firefox = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:10.0.1) Gecko/20100101 Firefox/10.0.1'
 
