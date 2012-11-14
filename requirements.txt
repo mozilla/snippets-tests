@@ -12,3 +12,4 @@ pytest-mozwebqa==1.0
 pytest-xdist==1.8
 requests==0.11.1
 selenium
+lxml
