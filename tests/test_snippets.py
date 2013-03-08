@@ -44,12 +44,13 @@ class TestSnippets:
     def _parse_response(self, content):
         return BeautifulSoup(content)
 
+    @pytest.mark.xfail(reason='Bug 848750 Links in snippets-dev.allizom.org are throwing 500 Internal Server Error')
     @pytest.mark.parametrize(('path'), test_data)
     def test_snippet_set_present(self, mozwebqa, path):
         full_url = mozwebqa.base_url + path
 
         r = self._get_redirect(full_url)
-        Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" %(full_url, r.status_code))
+        Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" % (full_url, r.status_code))
 
         soup = self._parse_response(r.content)
         snippet_set = soup.select("div.snippet_set")
