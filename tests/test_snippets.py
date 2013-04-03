@@ -3,10 +3,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from xml.dom.minidom import parseString
+from xml.parsers.expat import ExpatError
+
 from unittestzero import Assert
 import pytest
 from bs4 import BeautifulSoup
 import requests
+
 
 @pytest.mark.skip_selenium
 @pytest.mark.nondestructive
@@ -45,7 +49,7 @@ class TestSnippets:
         full_url = mozwebqa.base_url + path
 
         r = self._get_redirect(full_url)
-        Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" %(full_url, r.status_code))
+        Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" % (full_url, r.status_code))
 
         soup = self._parse_response(r.content)
         snippets = soup.select("div.snippet")
@@ -63,3 +67,17 @@ class TestSnippets:
 
         for link in snippet_links:
             self.assert_valid_url(link['href'], path)
+
+    @pytest.mark.parametrize(('path'), test_data)
+    def test_that_snippets_are_well_formed_xml(self, mozwebqa, path):
+        if 'snippets.mozilla.com' not in mozwebqa.base_url:
+            pytest.skip('Only test well formedness on production.')
+
+        full_url = mozwebqa.base_url + path
+
+        r = self._get_redirect(full_url)
+
+        try:
+            dom = parseString(r.content)
+        except ExpatError as e:
+            Assert.fail('Snippets at %s do not contain well formed xml. %s' % (full_url, e.message))
