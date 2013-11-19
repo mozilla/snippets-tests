@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-REQUESTS_TIMEOUT = 15
+REQUESTS_TIMEOUT = 20
 
 
 @pytest.mark.skip_selenium
