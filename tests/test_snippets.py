@@ -38,9 +38,9 @@ class TestSnippets:
         """Checks if a URL returns a 200 OK response."""
         headers = {'user-agent': user_agent,
                    'accept-language': locale}
-
+        
         # HEAD doesn't return page body.
-        r = requests.head(url, headers=headers, timeout=REQUESTS_TIMEOUT, allow_redirects=True, verify=False)
+        r = requests.get(url, headers=headers, timeout=REQUESTS_TIMEOUT, allow_redirects=True, verify=False)
         return Assert.equal(r.status_code, requests.codes.ok,
                             'Bad URL %s found in %s' % (url, path))
 
