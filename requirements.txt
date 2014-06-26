@@ -10,6 +10,9 @@ py==1.4.9
 pytest==2.2.4
 pytest-mozwebqa==1.1.1
 pytest-xdist==1.8
-requests==1.2.3
+requests==2.3.0
+pyOpenSSL
+ndg-httpsclient
+pyasn1
 selenium
 html5lib==0.95
