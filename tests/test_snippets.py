@@ -3,6 +3,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from urlparse import urlparse
 from xml.dom.minidom import parseString
 from xml.parsers.expat import ExpatError
 
@@ -36,13 +37,21 @@ class TestSnippets:
 
     def assert_valid_url(self, url, path, user_agent=_user_agent_firefox, locale='en-US'):
         """Checks if a URL returns a 200 OK response."""
+
+        # Only check http and https links
+        if not urlparse(url).scheme.startswith('http'):
+            return True
+
         headers = {'user-agent': user_agent,
                    'accept-language': locale}
-        
+
         # HEAD doesn't return page body.
-        r = requests.get(url, headers=headers, timeout=REQUESTS_TIMEOUT, allow_redirects=True, verify=False)
-        return Assert.equal(r.status_code, requests.codes.ok,
-                            'Bad URL %s found in %s' % (url, path))
+        try:
+            r = requests.get(url, headers=headers, timeout=REQUESTS_TIMEOUT, allow_redirects=True, verify=False)
+            return Assert.equal(r.status_code, requests.codes.ok,
+                                'Bad URL %s found in %s' % (url, path))
+        except requests.exceptions.RequestException as e:
+            return Assert.fail('Error connecting to %s in %s: %s' % (url, path, e.message))
 
     def _parse_response(self, content):
         return BeautifulSoup(content)
