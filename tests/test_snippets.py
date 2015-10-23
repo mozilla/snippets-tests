@@ -88,6 +88,6 @@ class TestSnippets:
         r = self._get_redirect(full_url)
 
         try:
-            dom = parseString(r.content)
+            parseString(r.content)
         except ExpatError as e:
             Assert.fail('Snippets at %s do not contain well formed xml. %s' % (full_url, e.message))
