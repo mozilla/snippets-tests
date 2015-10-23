@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -16,8 +15,6 @@ import requests
 REQUESTS_TIMEOUT = 20
 
 
-@pytest.mark.skip_selenium
-@pytest.mark.nondestructive
 class TestSnippets:
 
     test_data = [
@@ -57,8 +54,8 @@ class TestSnippets:
         return BeautifulSoup(content)
 
     @pytest.mark.parametrize(('path'), test_data)
-    def test_snippet_set_present(self, mozwebqa, path):
-        full_url = mozwebqa.base_url + path
+    def test_snippet_set_present(self, base_url, path):
+        full_url = base_url + path
 
         r = self._get_redirect(full_url)
         Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" % (full_url, r.status_code))
@@ -69,8 +66,8 @@ class TestSnippets:
         Assert.greater(len(snippet_set), 0, "No snippet set found")
 
     @pytest.mark.parametrize(('path'), test_data)
-    def test_all_links(self, mozwebqa, path):
-        full_url = mozwebqa.base_url + path
+    def test_all_links(self, base_url, path):
+        full_url = base_url + path
 
         soup = self._parse_response(self._get_redirect(full_url).content)
         snippet_links = soup.select("a")
@@ -79,11 +76,11 @@ class TestSnippets:
             self.assert_valid_url(link['href'], path)
 
     @pytest.mark.parametrize(('path'), test_data)
-    def test_that_snippets_are_well_formed_xml(self, mozwebqa, path):
-        if 'snippets.mozilla.com' not in mozwebqa.base_url:
+    def test_that_snippets_are_well_formed_xml(self, base_url, path):
+        if 'snippets.mozilla.com' not in base_url:
             pytest.skip('Only test well formedness on production.')
 
-        full_url = mozwebqa.base_url + path
+        full_url = base_url + path
 
         r = self._get_redirect(full_url)
 
