@@ -1,4 +1,3 @@
-UnittestZero
 beautifulsoup4==4.4.1
 pytest==2.3.5
 requests==2.8.1

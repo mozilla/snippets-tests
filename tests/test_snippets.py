@@ -6,7 +6,6 @@ from urlparse import urlparse
 from xml.dom.minidom import parseString
 from xml.parsers.expat import ExpatError
 
-from unittestzero import Assert
 import pytest
 from bs4 import BeautifulSoup
 import requests
@@ -44,11 +43,14 @@ class TestSnippets:
 
         # HEAD doesn't return page body.
         try:
-            r = requests.get(url, headers=headers, timeout=REQUESTS_TIMEOUT, allow_redirects=True, verify=False)
-            return Assert.equal(r.status_code, requests.codes.ok,
-                                'Bad URL %s found in %s' % (url, path))
+            r = requests.get(url, headers=headers, timeout=REQUESTS_TIMEOUT,
+                             allow_redirects=True, verify=False)
         except requests.exceptions.RequestException as e:
-            return Assert.fail('Error connecting to %s in %s: %s' % (url, path, e.message))
+            raise AssertionError('Error connecting to {0} in {1}: {2}'.format(
+                url, path, e))
+        assert requests.codes.ok == r.status_code, \
+            'Bad URL {0} found in {1}'.format(url, path)
+        return True
 
     def _parse_response(self, content):
         return BeautifulSoup(content)
@@ -58,12 +60,12 @@ class TestSnippets:
         full_url = base_url + path
 
         r = self._get_redirect(full_url)
-        Assert.equal(r.status_code, requests.codes.ok, "URL %s failed with status code: %s" % (full_url, r.status_code))
+        assert requests.codes.ok == r.status_code, full_url
 
         soup = self._parse_response(r.content)
         snippet_set = soup.select("div.snippet_set")
 
-        Assert.greater(len(snippet_set), 0, "No snippet set found")
+        assert len(snippet_set) > 0, 'No snippet set found'
 
     @pytest.mark.parametrize(('path'), test_data)
     def test_all_links(self, base_url, path):
@@ -87,4 +89,5 @@ class TestSnippets:
         try:
             parseString(r.content)
         except ExpatError as e:
-            Assert.fail('Snippets at %s do not contain well formed xml. %s' % (full_url, e.message))
+            raise AssertionError('Snippets at {0} do not contain well formed '
+                                 'xml: {1}'.format(full_url, e))
