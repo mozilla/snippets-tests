@@ -2,6 +2,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import json
+import re
 from urlparse import urlparse
 from xml.dom.minidom import parseString
 from xml.parsers.expat import ExpatError
@@ -63,7 +65,9 @@ class TestSnippets:
         assert requests.codes.ok == r.status_code, full_url
 
         soup = self._parse_response(r.content)
-        snippet_set = soup.select("div.snippet_set")
+        snippet_script = soup.find('script', type="text/javascript").text
+        snippet_json_string = re.search("JSON.parse\('(.+)'\)", snippet_script).groups()[0]
+        snippet_set = json.loads(snippet_json_string.replace('%u', r'\u').decode('unicode-escape'))
 
         assert len(snippet_set) > 0, 'No snippet set found'
 
