@@ -86,9 +86,8 @@ class TestSnippets:
         full_url = base_url + path
 
         r = self._get_redirect(full_url)
-
         try:
-            parseString(r.content)
+            parseString('<div>{}</div>'.format(r.content))
         except ExpatError as e:
             raise AssertionError('Snippets at {0} do not contain well formed '
                                  'xml: {1}'.format(full_url, e))
