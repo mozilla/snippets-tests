@@ -83,9 +83,6 @@ class TestSnippets:
 
     @pytest.mark.parametrize(('path'), test_data)
     def test_that_snippets_are_well_formed_xml(self, base_url, path):
-        if 'snippets.mozilla.com' not in base_url:
-            pytest.skip('Only test well formedness on production.')
-
         full_url = base_url + path
 
         r = self._get_redirect(full_url)
