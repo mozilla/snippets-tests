@@ -69,7 +69,7 @@ class TestSnippets:
         snippet_json_string = re.search("JSON.parse\('(.+)'\)", snippet_script).groups()[0]
         snippet_set = json.loads(snippet_json_string.replace('%u', r'\u').decode('unicode-escape'))
 
-        assert len(snippet_set) > 0, 'No snippet set found'
+        assert isinstance(snippet_set, list), 'No snippet set found'
 
     @pytest.mark.parametrize(('path'), test_data)
     def test_all_links(self, base_url, path):
