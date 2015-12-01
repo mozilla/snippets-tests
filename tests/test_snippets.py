@@ -69,7 +69,7 @@ class TestSnippets:
         snippet_json_string = re.search("JSON.parse\('(.+)'\)", snippet_script).groups()[0]
         snippet_set = json.loads(snippet_json_string.replace('%u', r'\u').decode('unicode-escape'))
 
-        assert len(snippet_set) > 0, 'No snippet set found'
+        assert isinstance(snippet_set, list), 'No snippet set found'
 
     @pytest.mark.parametrize(('path'), test_data)
     def test_all_links(self, base_url, path):
@@ -83,15 +83,11 @@ class TestSnippets:
 
     @pytest.mark.parametrize(('path'), test_data)
     def test_that_snippets_are_well_formed_xml(self, base_url, path):
-        if 'snippets.mozilla.com' not in base_url:
-            pytest.skip('Only test well formedness on production.')
-
         full_url = base_url + path
 
         r = self._get_redirect(full_url)
-
         try:
-            parseString(r.content)
+            parseString('<div>{}</div>'.format(r.content))
         except ExpatError as e:
             raise AssertionError('Snippets at {0} do not contain well formed '
                                  'xml: {1}'.format(full_url, e))
