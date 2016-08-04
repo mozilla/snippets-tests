@@ -5,7 +5,7 @@ Automated tests for the Snippets web app
 
 [![license](https://img.shields.io/badge/license-MPL%202.0-blue.svg)](https://github.com/mozilla/snippets-tests/blob/master/LICENSE)
 [![travis](https://img.shields.io/travis/mozilla/snippets-tests.svg?label=travis)](http://travis-ci.org/mozilla/snippets-tests/)
-[![stage](https://img.shields.io/jenkins/s/https/webqa-ci.mozilla.com/snippets.stage?label=stage)](https://webqa-ci.mozilla.com/job/amo.stage.saucelabs/)
+[![stage](https://img.shields.io/jenkins/s/https/webqa-ci.mozilla.com/snippets.stage.svg?label=stage)](https://webqa-ci.mozilla.com/job/amo.stage.saucelabs/)
 [![prod](https://img.shields.io/jenkins/s/https/webqa-ci.mozilla.com/snippets.prod.svg?label=prod)](https://webqa-ci.mozilla.com/job/amo.prod/)
 [![requirements](https://img.shields.io/requires/github/mozilla/snippets-tests.svg)](https://requires.io/github/mozilla/snippets-tests/requirements/?branch=master)
 
