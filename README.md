@@ -12,50 +12,8 @@ Automated tests for the Snippets web app
 Running Tests
 -------------
 
-### Java
-You will need a version of the [Java Runtime Environment][JRE] installed
-
-[JRE]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
-
-### Python
-Before you will be able to run these tests, you'll need to have Python 2.6
-installed.
-
-__note__
-
-The below instructions will install the required Python libraries into your
-global Python installation. If you work on multiple Python projects that might
-end up needing different versions of the same libraries, you might want to
-follow `sudo easy_install pip` with `sudo pip install virtualenv`, and then
-create and activate a [virtualenv](http://www.virtualenv.org) (e.g. `virtualenv
-snippets-tests-env; source snippets-tests-env/bin/activate`) to
-create a clean "virtual environment" for just this project. Then you can
-`pip install -r requirements.txt` in your virtual environment
-without needing to use `sudo`.
-
-If you don't mind installing globally, just run:
-
-    sudo easy_install pip
-
-followed by:
-
-    sudo pip install -r requirements.txt
-
-__note__
-
-if you are running on Debian or Ubuntu, you may need to do:
-    
-    sudo apt-get install python-setuptools
-    
-to install the required Python libraries.
-
-### Running Tests
-Once the above prerequisites have been met, you can run the tests using the
-following command:
-
-    py.test tests/test_snippets.py
-
-For other possible options, type `py.test --help`.
+* `Install Tox <https://tox.readthedocs.io/en/latest/install.html>`_
+* Run ``tox``
 
 Writing Tests
 -------------
