@@ -12,8 +12,8 @@ Automated tests for the Snippets web app
 Running Tests
 -------------
 
-* `Install Tox <https://tox.readthedocs.io/en/latest/install.html>`_
-* Run ``tox``
+* [Install Tox](https://tox.readthedocs.io/en/latest/install.html)
+* Run `tox`
 
 Writing Tests
 -------------
