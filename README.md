@@ -7,6 +7,8 @@ Automated tests for the Snippets web app
 [![travis](https://img.shields.io/travis/mozilla/snippets-tests.svg?label=travis)](http://travis-ci.org/mozilla/snippets-tests/)
 [![stage](https://img.shields.io/jenkins/s/https/webqa-ci.mozilla.com/snippets.stage.svg?label=stage)](https://webqa-ci.mozilla.com/job/snippets.stage/)
 [![prod](https://img.shields.io/jenkins/s/https/webqa-ci.mozilla.com/snippets.prod.svg?label=prod)](https://webqa-ci.mozilla.com/job/snippets.prod/)
+[![updates](https://pyup.io/repos/github/mozilla/snippets-tests/shield.svg)](https://pyup.io/repos/github/mozilla/snippets-tests)
+[![Python 3](https://pyup.io/repos/github/mozilla/snippets-tests/python-3-shield.svg)](https://pyup.io/repos/github/mozilla/snippets-tests/)
 
 Running Tests
 -------------
