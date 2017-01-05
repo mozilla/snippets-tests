@@ -7,7 +7,6 @@ Automated tests for the Snippets web app
 [![travis](https://img.shields.io/travis/mozilla/snippets-tests.svg?label=travis)](http://travis-ci.org/mozilla/snippets-tests/)
 [![stage](https://img.shields.io/jenkins/s/https/webqa-ci.mozilla.com/snippets.stage.svg?label=stage)](https://webqa-ci.mozilla.com/job/snippets.stage/)
 [![prod](https://img.shields.io/jenkins/s/https/webqa-ci.mozilla.com/snippets.prod.svg?label=prod)](https://webqa-ci.mozilla.com/job/snippets.prod/)
-[![requirements](https://img.shields.io/requires/github/mozilla/snippets-tests.svg)](https://requires.io/github/mozilla/snippets-tests/requirements/?branch=master)
 
 Running Tests
 -------------
