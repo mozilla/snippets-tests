@@ -8,10 +8,11 @@ def environment = 'tests'
  * @param environment test environment to run
 */
 def runTox(environment) {
+  def options = env.PYTEST_ADDOPTS ?: ''
   def processes = env.PYTEST_PROCESSES ?: 'auto'
   try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
-      withEnv(["PYTEST_ADDOPTS=${PYTEST_ADDOPTS} " +
+      withEnv(["PYTEST_ADDOPTS=${options} " +
         "-n=${processes} " +
         "--color=yes"]) {
         sh "tox -e ${environment}"
@@ -90,7 +91,7 @@ try {
         }
       }
     }
-  }    
+  }
 } catch(err) {
   currentBuild.result = 'FAILURE'
   ircNotification(currentBuild.result)
