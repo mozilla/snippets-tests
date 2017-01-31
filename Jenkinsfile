@@ -110,13 +110,6 @@ try {
       dir('results') {
         unstash environment
       }
-      publishHTML(target: [
-        allowMissing: false,
-        alwaysLinkToLastBuild: true,
-        keepAll: true,
-        reportDir: 'results',
-        reportFiles: "${environment}.html",
-        reportName: 'HTML Report'])
       junit 'results/*.xml'
       archiveArtifacts 'results/*'
     }
