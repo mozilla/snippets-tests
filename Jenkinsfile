@@ -1,4 +1,4 @@
-@Library('fxtest@1.3') _
+@Library('fxtest@1.5') _
 
 pipeline {
   agent any
@@ -9,6 +9,7 @@ pipeline {
   }
   environment {
     PYTEST_ADDOPTS = "-n=10 --color=yes"
+    PULSE = credentials('PULSE')
   }
   stages {
     stage('Lint') {
@@ -24,7 +25,8 @@ pipeline {
         always {
           archiveArtifacts 'results/*'
           junit 'results/*.xml'
-          submitToActiveData('results/py27.log')
+          submitToActiveData('results/py27_raw.txt')
+          submitToTreeherder('snippets', 'e2e', 'End-to-end integration tests', 'results/*', 'results/py27_tbpl.txt')
         }
       }
     }
