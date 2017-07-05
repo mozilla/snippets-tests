@@ -1,1 +1,1 @@
-This repository is no longer being actively maintained, and the content has been removed.  Tests for Snippets now live in the [snippets-service](https://github.com/mozmar/snippets-service) repo.  Please use the repository history to access the previous content.
+This repository is no longer being actively maintained, and its content has been removed.  Tests for Snippets now live in the [snippets-service](https://github.com/mozmar/snippets-service) repo.  Please use the repository history to access the previous content.
